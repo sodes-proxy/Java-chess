@@ -1,12 +1,12 @@
 /**
  *
  */
-public class ChessPiece {
+public abstract class ChessPiece {
     private int x;
     private int y;
     String name;
     boolean isWhite;
-    public ChessPiece(int x, int y,String name, boolean isWhite) {
+    public ChessPiece(int x, int y) {
         this.x = x;
         this.y = y;
         this.isWhite = isWhite;
