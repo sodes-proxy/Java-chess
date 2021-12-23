@@ -11,12 +11,6 @@ public class main {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     private static final int BOARDSIZE=8;
@@ -24,37 +18,14 @@ public class main {
         char[][] board=start();
         //lsit of all the pieces created
         List<ChessPiece> allPieces= new ArrayList<ChessPiece>();
+        //create the chess pieces
         allPieces=createPieces(allPieces); /**check how to do this better**/
         //chessboard that will "contain all the pieces in their position"
         ChessPiece [][] piecesBoard = new ChessPiece[BOARDSIZE][BOARDSIZE];
-        //create the chess pieces
-
-        //putting the pieces in their respective place
-        for (ChessPiece piece:allPieces) {
-            piecesBoard[piece.getX()][piece.getY()]=piece;
-        }
-        //put pieces in the text board
-        for (int i=0;i< board.length;i++){
-            for(int j=0;j< board[0].length;j++){
-                if(piecesBoard[i][j]!=null){
-                    board[i][j]=piecesBoard[i][j].name.charAt(0);
-                }
-            }
-        }
+        //put pieces
+        board=putPieces(allPieces,piecesBoard,board);
         //print board
-        for (int i=0;i< board.length;i++){
-            for(int j=0;j< board[0].length;j++){
-                if((i+j)%2==0){
-                    System.out.print(ANSI_WHITE_BACKGROUND+"  "+board[i][j]+ANSI_RESET);
-                    System.out.print(ANSI_WHITE_BACKGROUND+ "\t"+ ANSI_RESET);
-                }
-                else{
-                    System.out.print(ANSI_BLACK_BACKGROUND+"  "+board[i][j]+ANSI_RESET);
-                    System.out.print(ANSI_BLACK_BACKGROUND+ "\t"+ ANSI_RESET);
-                }
-            }
-            System.out.print("\n");
-        }
+        printBoard(board);
     }
 
     /**
@@ -64,11 +35,15 @@ public class main {
         char[][]board=new char[BOARDSIZE][BOARDSIZE];
         for (int i=0;i< board.length;i++){
             for(int j=0;j< board[0].length;j++){
-                board[i][j]='x';
+                board[i][j]=' ';
             }
         }
         return board;
     }
+    /**
+     * @param allPieces
+     * @return
+     */
     private static List<ChessPiece> createPieces(List<ChessPiece> allPieces){
         /**
          * Check if there is a better way to do this
@@ -130,5 +105,44 @@ public class main {
         ChessPiece bQueen= new Queen(0,3,false);
         allPieces.add(bQueen);
         return allPieces;
+    }
+    /**
+     * @param allPieces
+     * @param piecesBoard
+     * @param board
+     * @return
+     */
+    private static char[][] putPieces(List<ChessPiece> allPieces, ChessPiece[][] piecesBoard, char[][] board){
+        //putting the pieces in their respective place
+        for (ChessPiece piece:allPieces) {
+            piecesBoard[piece.getX()][piece.getY()]=piece;
+        }
+        //put pieces in the text board
+        for (int i=0;i< board.length;i++){
+            for(int j=0;j< board[0].length;j++){
+                if(piecesBoard[i][j]!=null){
+                    board[i][j]=piecesBoard[i][j].name.charAt(0);
+                }
+            }
+        }
+        return board;
+    }
+    /**
+     * @param board
+     */
+    private static void printBoard(char [][] board){
+        for (int i=0;i< board.length;i++){
+            for(int j=0;j< board[0].length;j++){
+                if((i+j)%2==0){
+                    System.out.print(ANSI_WHITE_BACKGROUND+"  "+board[i][j]+ANSI_RESET);
+                    System.out.print(ANSI_WHITE_BACKGROUND+ "\t"+ ANSI_RESET);
+                }
+                else{
+                    System.out.print(ANSI_BLACK_BACKGROUND+"  "+board[i][j]+ANSI_RESET);
+                    System.out.print(ANSI_BLACK_BACKGROUND+ "\t"+ ANSI_RESET);
+                }
+            }
+            System.out.print("\n");
+        }
     }
 }
