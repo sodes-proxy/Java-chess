@@ -18,6 +18,9 @@ public class main {
     private static final int BOARDSIZE = 8;
 
     public static void main(String[] args) {
+        /**
+         * FIXME: X and Y are inverted, it generates confusion
+         * */
         char[][] board = start();
         //lsit of all the pieces created
         List<ChessPiece> allPieces = new ArrayList<ChessPiece>();
@@ -36,10 +39,10 @@ public class main {
     }
 
     private static ChessPiece[][] movePiece(ChessPiece[][] board, char[][] terminalBoard) {
-        int x0 = 4;
-        int y0 = 4;
-        int x1 = 4;
-        int y1 = 4;
+        int x0 = 100;
+        int y0 = 100;
+        int x1 = 100;
+        int y1 = 100;
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter position of piece you want to move :");
         String str = sc.nextLine();
@@ -59,26 +62,26 @@ public class main {
             x1 = Integer.parseInt(aux[0]);
             y1 = Integer.parseInt(aux[1]);
         }
-        if(board[y0][x0].canMove(y1, x1)&&board[y1][x1]==null){
+        if(board[y0][x0].canMove(y1, x1)){
             ChessPiece tmp=board[y0][x0];
             char tmpChar=terminalBoard[y0][x0];
-            board[y0][x0].setX(x1);
-            board[y0][x0].setY(y1);
+            board[y0][x0].setX(y1);
+            board[y0][x0].setY(x1);
             board[y0][x0]=null;
             terminalBoard[y0][x0]=' ';
             board[y1][x1]=tmp;
             terminalBoard[y1][x1]=tmpChar;
-            System.out.println(board[y0][x0]);
         }
         else{
+            board[y0][x0].printObj();
             System.out.println("Illegal move");
         }
         return board;
     }
 
     private static boolean validation(String[] str) {
-        int x = 4;
-        int y = 4;
+        int x;
+        int y;
         //validation
         try {
             x = Integer.parseInt(str[0]);

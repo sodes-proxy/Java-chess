@@ -5,6 +5,9 @@ public class King extends ChessPiece{
         this.name="King";
         this.isWhite=isWhite;
     }
+    /**
+     * TODO: add castling and restrict "dangerous" moves
+     * */
     @Override
     public boolean canMove(int x, int y) {
         // correct possible movements
