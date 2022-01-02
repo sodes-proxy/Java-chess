@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 public class main {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -13,136 +15,186 @@ public class main {
     public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    private static final int BOARDSIZE=8;
-    public static void main(String[] args){
-        char[][] board=start();
+    private static final int BOARDSIZE = 8;
+
+    public static void main(String[] args) {
+        char[][] board = start();
         //lsit of all the pieces created
-        List<ChessPiece> allPieces= new ArrayList<ChessPiece>();
+        List<ChessPiece> allPieces = new ArrayList<ChessPiece>();
         //create the chess pieces
-        allPieces=createPieces(allPieces); /**check how to do this better**/
+        allPieces = createPieces(allPieces); /**check how to do this better**/
         //chessboard that will "contain all the pieces in their position"
-        ChessPiece [][] piecesBoard = new ChessPiece[BOARDSIZE][BOARDSIZE];
+        ChessPiece[][] piecesBoard = new ChessPiece[BOARDSIZE][BOARDSIZE];
         //put pieces
-        board=putPieces(allPieces,piecesBoard,board);
+        board = putPieces(allPieces, piecesBoard, board);
         //print board
         printBoard(board);
+        //get position
+        movePiece(piecesBoard);
+    }
+
+    private static void movePiece(ChessPiece[][] board) {
+        int x0 = 4;
+        int y0 = 4;
+        int x1 = 4;
+        int y1 = 4;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter position of piece you want to move :");
+        String str = sc.nextLine();
+        String[] aux = str.split(" ");
+        /**
+         * TODO: modify validation() to make the process of reading input cleaner
+         * */
+        if (validation(aux)) {
+            x0 = Integer.parseInt(aux[0]);
+            y0 = Integer.parseInt(aux[1]);
+        }
+        System.out.println("you've selected: " + (board[y0][x0].isWhite ? "White" : "Black") + " " + board[y0][x0].name);
+        System.out.print("Enter position you want to move to:");
+        str = sc.nextLine();
+        aux = str.split(" ");
+        if (validation(aux)) {
+            x1 = Integer.parseInt(aux[0]);
+            y1 = Integer.parseInt(aux[1]);
+        }
+        System.out.println(board[y0][x0].canMove(y1, x1));
+    }
+
+    private static boolean validation(String[] str) {
+        int x = 4;
+        int y = 4;
+        //validation
+        try {
+            x = Integer.parseInt(str[0]);
+            y = Integer.parseInt(str[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Please introduce numbers");
+            return false;
+        }
+        if (x > 7 || y > 7 || x < 0 || y < 0) {
+            System.out.println("please introduce a valid position");
+            return false;
+        }
+        return true;
     }
 
     /**
      * @return
      */
-    private static char[][] start(){
-        char[][]board=new char[BOARDSIZE][BOARDSIZE];
-        for (int i=0;i< board.length;i++){
-            for(int j=0;j< board[0].length;j++){
-                board[i][j]=' ';
+    private static char[][] start() {
+        char[][] board = new char[BOARDSIZE][BOARDSIZE];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                board[i][j] = ' ';
             }
         }
         return board;
     }
+
     /**
      * @param allPieces
      * @return
      */
-    private static List<ChessPiece> createPieces(List<ChessPiece> allPieces){
+    private static List<ChessPiece> createPieces(List<ChessPiece> allPieces) {
         /**
          * Check if there is a better way to do this
          * **/
         /**White Pieces**/
         //king
-        ChessPiece wKing= new King(7,4,true);
+        ChessPiece wKing = new King(7, 4, true);
         allPieces.add(wKing);
         //pawns
         ChessPiece wPawn;
-        for (int i=0;i<BOARDSIZE;i++){
-            wPawn = new Pawn(6,i,true);
+        for (int i = 0; i < BOARDSIZE; i++) {
+            wPawn = new Pawn(6, i, true);
             allPieces.add(wPawn);
         }
         //rooks
-        ChessPiece wRook= new Rook(7,0,true);
+        ChessPiece wRook = new Rook(7, 0, true);
         allPieces.add(wRook);
-        wRook= new Rook(7,7,true);
+        wRook = new Rook(7, 7, true);
         allPieces.add(wRook);
         //knights
-        ChessPiece wKnight= new Knight(7,1,true);
+        ChessPiece wKnight = new Knight(7, 1, true);
         allPieces.add(wKnight);
-        wKnight= new Knight(7,6,true);
+        wKnight = new Knight(7, 6, true);
         allPieces.add(wKnight);
         //Bishops
-        ChessPiece wBishop= new Bishop(7,2,true);
+        ChessPiece wBishop = new Bishop(7, 2, true);
         allPieces.add(wBishop);
-        wBishop= new Bishop(7,5,true);
+        wBishop = new Bishop(7, 5, true);
         allPieces.add(wBishop);
         //Queen
-        ChessPiece wQueen= new Queen(7,3,true);
+        ChessPiece wQueen = new Queen(7, 3, true);
         allPieces.add(wQueen);
         /**black Pieces**/
         //king
-        ChessPiece bKing= new King(0,4,false);
+        ChessPiece bKing = new King(0, 4, false);
         allPieces.add(bKing);
         //pawns
         ChessPiece bPawn;
-        for (int i=0;i<BOARDSIZE;i++){
-            bPawn = new Pawn(1,i,false);
+        for (int i = 0; i < BOARDSIZE; i++) {
+            bPawn = new Pawn(1, i, false);
             allPieces.add(bPawn);
         }
         //rooks
-        ChessPiece bRook= new Rook(0,0,false);
+        ChessPiece bRook = new Rook(0, 0, false);
         allPieces.add(bRook);
-        bRook= new Rook(0,7,false);
+        bRook = new Rook(0, 7, false);
         allPieces.add(bRook);
         //knights
-        ChessPiece bKnight= new Knight(0,1,false);
+        ChessPiece bKnight = new Knight(0, 1, false);
         allPieces.add(bKnight);
-        bKnight= new Knight(0,6,false);
+        bKnight = new Knight(0, 6, false);
         allPieces.add(bKnight);
         //Bishops
-        ChessPiece bBishop= new Bishop(0,2,false);
+        ChessPiece bBishop = new Bishop(0, 2, false);
         allPieces.add(bBishop);
-        bBishop= new Bishop(0,5,false);
+        bBishop = new Bishop(0, 5, false);
         allPieces.add(bBishop);
         //Queen
-        ChessPiece bQueen= new Queen(0,3,false);
+        ChessPiece bQueen = new Queen(0, 3, false);
         allPieces.add(bQueen);
         return allPieces;
     }
+
     /**
      * @param allPieces
      * @param piecesBoard
      * @param board
      * @return
      */
-    private static char[][] putPieces(List<ChessPiece> allPieces, ChessPiece[][] piecesBoard, char[][] board){
+    private static char[][] putPieces(List<ChessPiece> allPieces, ChessPiece[][] piecesBoard, char[][] board) {
         //putting the pieces in their respective place
-        for (ChessPiece piece:allPieces) {
-            piecesBoard[piece.getX()][piece.getY()]=piece;
+        for (ChessPiece piece : allPieces) {
+            piecesBoard[piece.getX()][piece.getY()] = piece;
         }
         //put pieces in the text board
-        for (int i=0;i< board.length;i++){
-            for(int j=0;j< board[0].length;j++){
-                if(piecesBoard[i][j]!=null){
-                    board[i][j]=piecesBoard[i][j].name.charAt(0);
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (piecesBoard[i][j] != null) {
+                    board[i][j] = piecesBoard[i][j].name.charAt(0);
                 }
             }
         }
         return board;
     }
+
     /**
      * @param board
      */
-    private static void printBoard(char [][] board){
-        for (int i=0;i< board.length;i++){
-            for(int j=0;j< board[0].length;j++){
-                if((i+j)%2==0){
-                    System.out.print(ANSI_WHITE_BACKGROUND+"  "+board[i][j]+ANSI_RESET);
-                    System.out.print(ANSI_WHITE_BACKGROUND+ "\t"+ ANSI_RESET);
-                }
-                else{
-                    System.out.print(ANSI_BLACK_BACKGROUND+"  "+board[i][j]+ANSI_RESET);
-                    System.out.print(ANSI_BLACK_BACKGROUND+ "\t"+ ANSI_RESET);
+    private static void printBoard(char[][] board) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if ((i + j) % 2 == 0) {
+                    System.out.print(ANSI_WHITE_BACKGROUND + "  " + board[i][j] + ANSI_RESET);
+                    System.out.print(ANSI_WHITE_BACKGROUND + "\t" + ANSI_RESET);
+                } else {
+                    System.out.print(ANSI_BLACK_BACKGROUND + "  " + board[i][j] + ANSI_RESET);
+                    System.out.print(ANSI_BLACK_BACKGROUND + "\t" + ANSI_RESET);
                 }
             }
-            System.out.print("\n");
+            System.out.print("\n" + ANSI_RESET);
         }
     }
 }

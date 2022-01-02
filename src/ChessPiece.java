@@ -12,7 +12,8 @@ public abstract class ChessPiece {
         this.isWhite = isWhite;
         this.name=name;
     }
-    public void move(int x,int y, ChessPiece [][] board){
+    public boolean canMove(int x,int y){
+        return false;
     }
     public int getX() {
         return x;
