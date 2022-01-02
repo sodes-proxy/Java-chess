@@ -30,4 +30,10 @@ public abstract class ChessPiece {
     public void setY(int y) {
         this.y = y;
     }
+    public void printObj(){
+        System.out.println(this.name);
+        System.out.println(this.isWhite? "White" : "Black");
+        System.out.println(this.x);
+        System.out.println(this.y);
+    }
 }

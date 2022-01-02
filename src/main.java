@@ -27,13 +27,15 @@ public class main {
         ChessPiece[][] piecesBoard = new ChessPiece[BOARDSIZE][BOARDSIZE];
         //put pieces
         board = putPieces(allPieces, piecesBoard, board);
-        //print board
-        printBoard(board);
-        //get position
-        movePiece(piecesBoard);
+        while(true) {
+            //print board
+            printBoard(board);
+            //get position
+            piecesBoard=movePiece(piecesBoard,board);
+        }
     }
 
-    private static void movePiece(ChessPiece[][] board) {
+    private static ChessPiece[][] movePiece(ChessPiece[][] board, char[][] terminalBoard) {
         int x0 = 4;
         int y0 = 4;
         int x1 = 4;
@@ -57,7 +59,21 @@ public class main {
             x1 = Integer.parseInt(aux[0]);
             y1 = Integer.parseInt(aux[1]);
         }
-        System.out.println(board[y0][x0].canMove(y1, x1));
+        if(board[y0][x0].canMove(y1, x1)&&board[y1][x1]==null){
+            ChessPiece tmp=board[y0][x0];
+            char tmpChar=terminalBoard[y0][x0];
+            board[y0][x0].setX(x1);
+            board[y0][x0].setY(y1);
+            board[y0][x0]=null;
+            terminalBoard[y0][x0]=' ';
+            board[y1][x1]=tmp;
+            terminalBoard[y1][x1]=tmpChar;
+            System.out.println(board[y0][x0]);
+        }
+        else{
+            System.out.println("Illegal move");
+        }
+        return board;
     }
 
     private static boolean validation(String[] str) {
@@ -196,5 +212,11 @@ public class main {
             }
             System.out.print("\n" + ANSI_RESET);
         }
+    }
+    /**
+     * TODO: add explanation of coordinates (with arrows and numbers)
+     * */
+    private static void printInstructions(){
+
     }
 }
