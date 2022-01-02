@@ -10,9 +10,8 @@ public class Pawn extends ChessPiece{
      * TODO: Implement first move can be 2 spaces and attacking pieces
      * */
     @Override
-    public boolean canMove(int x, int y) {
+    public boolean canMove(int x, int y,ChessPiece[][] board) {
         if(this.firstMove){
-            System.out.println("first: " + this.firstMove + " blanco: "+ this.isWhite +" y1: " +x+" y0: " +getX() + " x1: "+ y+" x0: "+getY());
             this.firstMove=false;
             // White Pawns
             if(x==(this.getX()-2) && y==(this.getY()) && this.isWhite) return true;
@@ -23,7 +22,6 @@ public class Pawn extends ChessPiece{
             else return false;
         }
         else{
-            System.out.println("first: " + this.firstMove + " blanco: "+ this.isWhite +" y1: " +x+" y0: " +getX() + " x1: "+ y+" x0: "+getY());
             // White Pawns
             if(x==(this.getX()-1) && y==(this.getY()) && this.isWhite) return true;
             // Black Pawns

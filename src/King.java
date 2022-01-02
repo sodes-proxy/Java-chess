@@ -9,7 +9,7 @@ public class King extends ChessPiece{
      * TODO: add castling and restrict "dangerous" moves
      * */
     @Override
-    public boolean canMove(int x, int y) {
+    public boolean canMove(int x, int y,ChessPiece[][] board) {
         // correct possible movements
         if(x==(this.getX()+1) && y==this.getY()) return true;
         else if(x==(this.getX()-1) && y==this.getY()) return true;

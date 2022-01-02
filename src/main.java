@@ -30,11 +30,12 @@ public class main {
         ChessPiece[][] piecesBoard = new ChessPiece[BOARDSIZE][BOARDSIZE];
         //put pieces
         board = putPieces(allPieces, piecesBoard, board);
-        while(true) {
+        printInstructions();
+        while (true) {
             //print board
             printBoard(board);
             //get position
-            piecesBoard=movePiece(piecesBoard,board);
+            piecesBoard = movePiece(piecesBoard, board);
         }
     }
 
@@ -53,6 +54,8 @@ public class main {
         if (validation(aux)) {
             x0 = Integer.parseInt(aux[0]);
             y0 = Integer.parseInt(aux[1]);
+        } else {
+            return board;
         }
         System.out.println("you've selected: " + (board[y0][x0].isWhite ? "White" : "Black") + " " + board[y0][x0].name);
         System.out.print("Enter position you want to move to:");
@@ -61,18 +64,19 @@ public class main {
         if (validation(aux)) {
             x1 = Integer.parseInt(aux[0]);
             y1 = Integer.parseInt(aux[1]);
+        } else {
+            return board;
         }
-        if(board[y0][x0].canMove(y1, x1)){
-            ChessPiece tmp=board[y0][x0];
-            char tmpChar=terminalBoard[y0][x0];
+        if (board[y0][x0].canMove(y1, x1, board)) {
+            ChessPiece tmp = board[y0][x0];
+            char tmpChar = terminalBoard[y0][x0];
             board[y0][x0].setX(y1);
             board[y0][x0].setY(x1);
-            board[y0][x0]=null;
-            terminalBoard[y0][x0]=' ';
-            board[y1][x1]=tmp;
-            terminalBoard[y1][x1]=tmpChar;
-        }
-        else{
+            board[y0][x0] = null;
+            terminalBoard[y0][x0] = ' ';
+            board[y1][x1] = tmp;
+            terminalBoard[y1][x1] = tmpChar;
+        } else {
             board[y0][x0].printObj();
             System.out.println("Illegal move");
         }
@@ -90,7 +94,7 @@ public class main {
             System.out.println("Please introduce numbers");
             return false;
         }
-        if (x > 7 || y > 7 || x < 0 || y < 0) {
+        if (x > (BOARDSIZE-1) || y > (BOARDSIZE-1) || x < 0 || y < 0) {
             System.out.println("please introduce a valid position");
             return false;
         }
@@ -216,10 +220,24 @@ public class main {
             System.out.print("\n" + ANSI_RESET);
         }
     }
+
     /**
      * TODO: add explanation of coordinates (with arrows and numbers)
-     * */
-    private static void printInstructions(){
-
+     */
+    private static void printInstructions() {
+        System.out.println("To select a piece to move first you need to select which one you want\n"+ANSI_RED+"introduce your coordinate like the following X Y"+ANSI_RESET+" with a space between them\nAnd then you need to select the position you want to move the selected piece\nHere you can see the coordinates of each square in the board:");
+        for (int i = 0; i < BOARDSIZE; i++) {
+            for (int j = 0; j < BOARDSIZE; j++) {
+                    if (((i + j)-1) % 2 == 0) {
+                        System.out.print(ANSI_WHITE_BACKGROUND +i +" "+ j  + ANSI_RESET);
+                        System.out.print(ANSI_WHITE_BACKGROUND + "\t" + ANSI_RESET);
+                    } else {
+                        System.out.print(ANSI_BLACK_BACKGROUND + i+" "+j  + ANSI_RESET);
+                        System.out.print(ANSI_BLACK_BACKGROUND + "\t" + ANSI_RESET);
+                    }
+            }
+            System.out.print("\n" + ANSI_RESET);
+        }
+        System.out.println("\nHave Fun!\n");
     }
 }

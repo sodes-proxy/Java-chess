@@ -12,7 +12,16 @@ public abstract class ChessPiece {
         this.isWhite = isWhite;
         this.name=name;
     }
-    public boolean canMove(int x,int y){
+
+    /**
+     * This method returns true when position given is one where the piece can move.
+     * It uses the board to determine if any piece in the way is friend or foe
+     * @param x X value of new position
+     * @param y Y value of new position
+     * @param board gameboard with the pieces and their positions
+     * @return
+     */
+    public boolean canMove(int x,int y,ChessPiece[][] board){
         return false;
     }
     public int getX() {
