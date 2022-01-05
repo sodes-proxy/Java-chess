@@ -14,23 +14,23 @@ Currently I just have the basis and is a text game, my plans are to expand it an
 
 when starting the game you will be greeted with the following message:
 
-![Console instructions](https://github.com/sodes-proxy/Java-chess/blob/main/images/instructions-Text-version.PNG)
+![Console instructions](https://github.com/sodes-proxy/Java-chess/blob/master/images/instructions-Text-version.PNG)
 
 Then the board will print and you will be asked to introduce the position of the piece you want to move:
 
-![Console instructions](https://github.com/sodes-proxy/Java-chess/blob/main/images/select-piece.PNG)
+![Piece selection](https://github.com/sodes-proxy/Java-chess/blob/master/images/select-piece.PNG)
 
 A confirmation message will appear to let you know if the piece you selected is the one you intended to select:
 
-![Console instructions](https://github.com/sodes-proxy/Java-chess/blob/main/images/select-piece.PNG)
+![Piece confirmation](https://github.com/sodes-proxy/Java-chess/blob/master/images/confirmation-piece.PNG)
 
 If the position introduced is one that the piece cannot reach it will display the _illegal move_ message:
 
-![Console instructions](https://github.com/sodes-proxy/Java-chess/blob/main/images/illegal-move.PNG)
+![Illegal move](https://github.com/sodes-proxy/Java-chess/blob/master/images/illegal-move.PNG)
 
 When the position introduce the piece will move accordingly and the board will be updated:
 
-![Console instructions](https://github.com/sodes-proxy/Java-chess/blob/main/images/correct-move.PNG)
+![Correct move](https://github.com/sodes-proxy/Java-chess/blob/master/images/correct-move.PNG)
 
 **_This version is not finished yet_**
 
