@@ -67,7 +67,7 @@ public class main {
         } else {
             return board;
         }
-        if (board[y0][x0].canMove(y1, x1, board)) {
+        if (board[y0][x0].canMove(y1, x1, board) && board[y1][x1]==null) {
             ChessPiece tmp = board[y0][x0];
             char tmpChar = terminalBoard[y0][x0];
             board[y0][x0].setX(y1);
@@ -77,7 +77,7 @@ public class main {
             board[y1][x1] = tmp;
             terminalBoard[y1][x1] = tmpChar;
         } else {
-            board[y0][x0].printObj();
+            //board[y0][x0].printObj();
             System.out.println("Illegal move");
         }
         return board;
