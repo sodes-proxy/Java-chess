@@ -45,6 +45,10 @@ public class main {
         } else {
             return board;
         }
+        if(board[y0][x0]==null){
+            System.out.println("There is no piece in that position");
+            return board;
+        }
         System.out.println("you've selected: " + (board[y0][x0].isWhite ? "White" : "Black") + " " + board[y0][x0].name);
         System.out.print("Enter position you want to move to:");
         str = sc.nextLine();
