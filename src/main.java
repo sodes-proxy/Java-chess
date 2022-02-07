@@ -3,18 +3,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class main {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-
     private static final int BOARDSIZE = 8;
 
     public static void main(String[] args) {
@@ -67,7 +55,7 @@ public class main {
         } else {
             return board;
         }
-        if (board[y0][x0].canMove(y1, x1, board) && board[y1][x1]==null) {
+        if (board[y0][x0].canMove(y1, x1, board) && board[y1][x1] == null) {
             ChessPiece tmp = board[y0][x0];
             char tmpChar = terminalBoard[y0][x0];
             board[y0][x0].setX(y1);
@@ -94,7 +82,7 @@ public class main {
             System.out.println("Please introduce numbers");
             return false;
         }
-        if (x > (BOARDSIZE-1) || y > (BOARDSIZE-1) || x < 0 || y < 0) {
+        if (x > (BOARDSIZE - 1) || y > (BOARDSIZE - 1) || x < 0 || y < 0) {
             System.out.println("please introduce a valid position");
             return false;
         }
@@ -210,14 +198,14 @@ public class main {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if ((i + j) % 2 == 0) {
-                    System.out.print(ANSI_WHITE_BACKGROUND + "  " + board[i][j] + ANSI_RESET);
-                    System.out.print(ANSI_WHITE_BACKGROUND + "\t" + ANSI_RESET);
+                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.color + "  " + board[i][j] + TerminalColor.ANSI_RESET.color);
+                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.color + "\t" + TerminalColor.ANSI_RESET.color);
                 } else {
-                    System.out.print(ANSI_BLACK_BACKGROUND + "  " + board[i][j] + ANSI_RESET);
-                    System.out.print(ANSI_BLACK_BACKGROUND + "\t" + ANSI_RESET);
+                    System.out.print(TerminalColor.ANSI_BLACK_BACKGROUND.color + "  " + board[i][j] + TerminalColor.ANSI_RESET.color);
+                    System.out.print(TerminalColor.ANSI_BLACK_BACKGROUND.color + "\t" + TerminalColor.ANSI_RESET.color);
                 }
             }
-            System.out.print("\n" + ANSI_RESET);
+            System.out.print("\n" + TerminalColor.ANSI_RESET.color);
         }
     }
 
@@ -225,18 +213,18 @@ public class main {
      * TODO: add explanation of coordinates (with arrows and numbers)
      */
     private static void printInstructions() {
-        System.out.println("To select a piece to move first you need to select which one you want\n"+ANSI_RED+"introduce your coordinate like the following X Y"+ANSI_RESET+" with a space between them\nAnd then you need to select the position you want to move the selected piece\nHere you can see the coordinates of each square in the board:");
+        System.out.println("To select a piece to move first you need to select which one you want\n" + TerminalColor.ANSI_RED.color + "introduce your coordinate like the following X Y" + TerminalColor.ANSI_RESET.color + " with a space between them\nAnd then you need to select the position you want to move the selected piece\nHere you can see the coordinates of each square in the board:");
         for (int i = 0; i < BOARDSIZE; i++) {
             for (int j = 0; j < BOARDSIZE; j++) {
-                    if (((i + j)-1) % 2 == 0) {
-                        System.out.print(ANSI_WHITE_BACKGROUND +i +" "+ j  + ANSI_RESET);
-                        System.out.print(ANSI_WHITE_BACKGROUND + "\t" + ANSI_RESET);
-                    } else {
-                        System.out.print(ANSI_BLACK_BACKGROUND + i+" "+j  + ANSI_RESET);
-                        System.out.print(ANSI_BLACK_BACKGROUND + "\t" + ANSI_RESET);
-                    }
+                if (((i + j) - 1) % 2 == 0) {
+                    System.out.print(""+TerminalColor.ANSI_WHITE_BACKGROUND.color +i + " " + j+" " +TerminalColor.ANSI_RESET.color);
+                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.color + "\t" + TerminalColor.ANSI_RESET.color);
+                } else {
+                    System.out.print(""+TerminalColor.ANSI_BLACK_BACKGROUND.color + i + " " + j + TerminalColor.ANSI_RESET.color);
+                    System.out.print(""+TerminalColor.ANSI_BLACK_BACKGROUND.color + "\t" + TerminalColor.ANSI_RESET.color);
+                }
             }
-            System.out.print("\n" + ANSI_RESET);
+            System.out.print("\n" + TerminalColor.ANSI_RESET.color);
         }
         System.out.println("\nHave Fun!\n");
     }
