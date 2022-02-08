@@ -1,8 +1,10 @@
+package Chess.Game.Pieces;
+
 public class Rook extends ChessPiece{
     public Rook(int x, int y, boolean isWhite) {
         super(x, y);
-        this.name="Rook";
-        this.isWhite=isWhite;
+        setName("Rook");
+        setWhite(isWhite);
     }
     @Override
     public boolean canMove(int x, int y,ChessPiece[][] board) {

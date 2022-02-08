@@ -1,3 +1,6 @@
+import Chess.Game.Pieces.*;
+import Chess.Terminal.TerminalColor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -49,7 +52,7 @@ public class main {
             System.out.println("There is no piece in that position");
             return board;
         }
-        System.out.println("you've selected: " + (board[y0][x0].isWhite ? "White" : "Black") + " " + board[y0][x0].name);
+        System.out.println("you've selected: " + (board[y0][x0].isWhite() ? "White" : "Black") + " " + board[y0][x0].getName());
         System.out.print("Enter position you want to move to:");
         str = sc.nextLine();
         aux = str.split(" ");
@@ -139,7 +142,7 @@ public class main {
         allPieces.add(wBishop);
         wBishop = new Bishop(7, 5, true);
         allPieces.add(wBishop);
-        //Queen
+        //Chess.Game.Pieces.Queen
         ChessPiece wQueen = new Queen(7, 3, true);
         allPieces.add(wQueen);
         /**black Pieces**/
@@ -167,7 +170,7 @@ public class main {
         allPieces.add(bBishop);
         bBishop = new Bishop(0, 5, false);
         allPieces.add(bBishop);
-        //Queen
+        //Chess.Game.Pieces.Queen
         ChessPiece bQueen = new Queen(0, 3, false);
         allPieces.add(bQueen);
         return allPieces;
@@ -188,7 +191,7 @@ public class main {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (piecesBoard[i][j] != null) {
-                    board[i][j] = piecesBoard[i][j].name.charAt(0);
+                    board[i][j] = piecesBoard[i][j].getName().charAt(0);
                 }
             }
         }
@@ -202,14 +205,14 @@ public class main {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if ((i + j) % 2 == 0) {
-                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.color + "  " + board[i][j] + TerminalColor.ANSI_RESET.color);
-                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.color + "\t" + TerminalColor.ANSI_RESET.color);
+                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.getColor() + "  " + board[i][j] + TerminalColor.ANSI_RESET.getColor());
+                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.getColor() + "\t" + TerminalColor.ANSI_RESET.getColor());
                 } else {
-                    System.out.print(TerminalColor.ANSI_BLACK_BACKGROUND.color + "  " + board[i][j] + TerminalColor.ANSI_RESET.color);
-                    System.out.print(TerminalColor.ANSI_BLACK_BACKGROUND.color + "\t" + TerminalColor.ANSI_RESET.color);
+                    System.out.print(TerminalColor.ANSI_BLACK_BACKGROUND.getColor() + "  " + board[i][j] + TerminalColor.ANSI_RESET.getColor());
+                    System.out.print(TerminalColor.ANSI_BLACK_BACKGROUND.getColor() + "\t" + TerminalColor.ANSI_RESET.getColor());
                 }
             }
-            System.out.print("\n" + TerminalColor.ANSI_RESET.color);
+            System.out.print("\n" + TerminalColor.ANSI_RESET.getColor());
         }
     }
 
@@ -217,18 +220,18 @@ public class main {
      * TODO: add explanation of coordinates (with arrows and numbers)
      */
     private static void printInstructions() {
-        System.out.println("To select a piece to move first you need to select which one you want\n" + TerminalColor.ANSI_RED.color + "introduce your coordinate like the following X Y" + TerminalColor.ANSI_RESET.color + " with a space between them\nAnd then you need to select the position you want to move the selected piece\nHere you can see the coordinates of each square in the board:");
+        System.out.println("To select a piece to move first you need to select which one you want\n" + TerminalColor.ANSI_RED.getColor() + "introduce your coordinate like the following X Y" + TerminalColor.ANSI_RESET.getColor() + " with a space between them\nAnd then you need to select the position you want to move the selected piece\nHere you can see the coordinates of each square in the board:");
         for (int i = 0; i < BOARDSIZE; i++) {
             for (int j = 0; j < BOARDSIZE; j++) {
                 if (((i + j) - 1) % 2 == 0) {
-                    System.out.print(""+TerminalColor.ANSI_WHITE_BACKGROUND.color +i + " " + j+" " +TerminalColor.ANSI_RESET.color);
-                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.color + "\t" + TerminalColor.ANSI_RESET.color);
+                    System.out.print(""+TerminalColor.ANSI_WHITE_BACKGROUND.getColor() +i + " " + j+" " +TerminalColor.ANSI_RESET.getColor());
+                    System.out.print(TerminalColor.ANSI_WHITE_BACKGROUND.getColor() + "\t" + TerminalColor.ANSI_RESET.getColor());
                 } else {
-                    System.out.print(""+TerminalColor.ANSI_BLACK_BACKGROUND.color + i + " " + j + TerminalColor.ANSI_RESET.color);
-                    System.out.print(""+TerminalColor.ANSI_BLACK_BACKGROUND.color + "\t" + TerminalColor.ANSI_RESET.color);
+                    System.out.print(""+TerminalColor.ANSI_BLACK_BACKGROUND.getColor() + i + " " + j + TerminalColor.ANSI_RESET.getColor());
+                    System.out.print(""+TerminalColor.ANSI_BLACK_BACKGROUND.getColor() + "\t" + TerminalColor.ANSI_RESET.getColor());
                 }
             }
-            System.out.print("\n" + TerminalColor.ANSI_RESET.color);
+            System.out.print("\n" + TerminalColor.ANSI_RESET.getColor());
         }
         System.out.println("\nHave Fun!\n");
     }

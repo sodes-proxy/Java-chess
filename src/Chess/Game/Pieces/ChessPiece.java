@@ -1,16 +1,16 @@
+package Chess.Game.Pieces;
+
 /**
  *
  */
 public abstract class ChessPiece {
     private int x;
     private int y;
-    String name;
-    boolean isWhite;
+    private String name;
+    private boolean isWhite;
     public ChessPiece(int x, int y) {
         this.x = x;
         this.y = y;
-        this.isWhite = isWhite;
-        this.name=name;
     }
 
     /**
@@ -32,6 +32,14 @@ public abstract class ChessPiece {
         this.x = x;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWhite(boolean white) {
+        isWhite = white;
+    }
+
     public int getY() {
         return y;
     }
@@ -44,5 +52,13 @@ public abstract class ChessPiece {
         System.out.println(this.isWhite? "White" : "Black");
         System.out.println("y: " + this.x);
         System.out.println("x: "+ this.y);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isWhite() {
+        return isWhite;
     }
 }
